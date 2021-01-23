@@ -14,13 +14,29 @@ minikube start
 ## Installing CoreDNS with etcd enabled
 Helm chart is used to install etcd and CoreDNS.
 ### Initializing helm chart
+Install helm using https://helm.sh/docs/intro/install/, and then check your version of helm:
+```
+$ helm version
+version.BuildInfo{Version:"v3.5.0", GitCommit:"32c22239423b3b4ba6706d450bd044baffdcf9e6", GitTreeState:"clean", GoVersion:"go1.15.6"}
+```
+If you are using a helm version less than 3.0, you will also need to do an init:
 ```
 helm init
 ```
+Make sure you have the stable repo defined and refreshed the repsitory:
+```
+helm repo add stable https://charts.helm.sh/stable
+helm repo update
+```
 ### Installing etcd
 [etcd operator](https://github.com/coreos/etcd-operator) is used to manage etcd clusters.
+For helm versions less than 3.0 use:
 ```
 helm install stable/etcd-operator --name my-etcd-op
+```
+For newer versions of helm:
+```
+helm install my-etcd-op stable/etcd-operator
 ```
 etcd cluster is installed with example yaml from etcd operator website.
 ```
